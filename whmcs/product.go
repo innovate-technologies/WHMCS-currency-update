@@ -106,6 +106,11 @@ func (a *API) GetClientsProducts(start, limit int) ([]ClientProduct, error) {
 	}
 
 	products := []ClientProduct{}
+
+	if data["products"] == nil {
+		return products, nil
+	}
+
 	for _, c := range (data["products"].(map[string]interface{}))["product"].([]interface{}) {
 		new := ClientProduct{}
 		d := c.(map[string]interface{})
