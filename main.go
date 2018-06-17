@@ -105,6 +105,11 @@ func updatePrice(product whmcs.ClientProduct, wg *sync.WaitGroup) {
 		break
 	}
 	log.Printf("[%d] update price from %f to %f \n", product.ID, product.Recurringamount, newPrice)
+
+	if newPrice == 0 {
+		return // something went wrong
+	}
+
 	if !dryRun {
 		err := api.UpdatePrice(product.ID, newPrice)
 		if err != nil {
