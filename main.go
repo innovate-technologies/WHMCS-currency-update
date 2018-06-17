@@ -91,7 +91,7 @@ func updatePrice(product whmcs.ClientProduct, wg *sync.WaitGroup) {
 	case "Quarterly":
 		newPrice = parent.Pricing[currency].Quarterly * currencies[currency].Rate
 		break
-	case "Semiannually":
+	case "Semi-Annually":
 		newPrice = parent.Pricing[currency].Semiannually * currencies[currency].Rate
 		break
 	case "Annually":
