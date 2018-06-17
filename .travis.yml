@@ -1,0 +1,29 @@
+sudo: required
+services: docker
+language: go
+go: 1.x
+
+env:
+    global:
+        - QEMU_VER=v2.9.1
+        - DOCKER_REPO=innovate/whmcs-currency-update
+        - GO_ARM=6
+    matrix:
+        - ARCH=amd64  QEMU_ARCH=x86_64  GO_ARCH=amd64
+        - ARCH=armhf  QEMU_ARCH=arm     GO_ARCH=arm 
+        - ARCH=arm64  QEMU_ARCH=aarch64 GO_ARCH=arm64 
+
+before_install:
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+before_script:
+    - sudo apt-get -y install qemu-user-static
+    - docker run --rm --privileged multiarch/qemu-user-static:register
+script:
+    - go test ./...
+    - GOARCH=$GO_ARCH GOARM=$GO_ARM CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo ./
+    - docker build -t $DOCKER_REPO:$ARCH-latest --build-arg ARCH="$ARCH" ./
+after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then docker push $DOCKER_REPO:$ARCH-latest; fi
