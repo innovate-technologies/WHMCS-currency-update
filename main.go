@@ -8,7 +8,7 @@ import (
 	"github.com/innovate-technologies/WHMCS-currency-update/whmcs"
 )
 
-const dryRun = true
+const dryRun = false
 
 var mainCurrency = "GBP"
 var currencies map[string]whmcs.Currency
