@@ -116,5 +116,6 @@ func updatePrice(product whmcs.ClientProduct, wg *sync.WaitGroup) {
 			log.Println(err)
 			return
 		}
+		log.Printf("[%d] updated price \n", product.ID)
 	}
 }
