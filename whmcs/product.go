@@ -129,7 +129,7 @@ func (a *API) GetClientsProducts(start, limit int) ([]ClientProduct, error) {
 
 func (a *API) UpdatePrice(id int64, amount float64) error {
 	// UpdateClientProduct
-	resp, err := a.createRequest("GetProducts", map[string]string{
+	resp, err := a.createRequest("UpdateClientProduct", map[string]string{
 		"serviceid":       fmt.Sprintf("%d", id),
 		"recurringamount": fmt.Sprintf("%.2f", amount),
 	})
