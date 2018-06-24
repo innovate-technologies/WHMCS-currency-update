@@ -8,7 +8,7 @@ import (
 	"github.com/innovate-technologies/WHMCS-currency-update/whmcs"
 )
 
-const dryRun = true
+const dryRun = false
 
 var mainCurrency = "GBP"
 var currencies map[string]whmcs.Currency
@@ -119,5 +119,6 @@ func updatePrice(product whmcs.ClientProduct, wg *sync.WaitGroup) {
 			log.Println(err)
 			return
 		}
+		log.Printf("[%d] updated price \n", product.ID)
 	}
 }
