@@ -25,6 +25,9 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	for _, currency := range currencies {
+		log.Printf("Rate %s: %f \n", currency.Code, currency.Rate)
+	}
 
 	products, err = api.GetAllProducts()
 	if err != nil {
