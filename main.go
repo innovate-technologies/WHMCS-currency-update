@@ -89,22 +89,22 @@ func updatePrice(product whmcs.ClientProduct, wg *sync.WaitGroup) {
 	var newPrice float64
 	switch product.Billingcycle {
 	case "Monthly":
-		newPrice = parent.Pricing[currency].Monthly * currencies[currency].Rate
+		newPrice = parent.Pricing[mainCurrency].Monthly * currencies[currency].Rate
 		break
 	case "Quarterly":
-		newPrice = parent.Pricing[currency].Quarterly * currencies[currency].Rate
+		newPrice = parent.Pricing[mainCurrency].Quarterly * currencies[currency].Rate
 		break
 	case "Semi-Annually":
-		newPrice = parent.Pricing[currency].Semiannually * currencies[currency].Rate
+		newPrice = parent.Pricing[mainCurrency].Semiannually * currencies[currency].Rate
 		break
 	case "Annually":
-		newPrice = parent.Pricing[currency].Annually * currencies[currency].Rate
+		newPrice = parent.Pricing[mainCurrency].Annually * currencies[currency].Rate
 		break
 	case "Biennially":
-		newPrice = parent.Pricing[currency].Biennially * currencies[currency].Rate
+		newPrice = parent.Pricing[mainCurrency].Biennially * currencies[currency].Rate
 		break
 	case "Triennially":
-		newPrice = parent.Pricing[currency].Triennially * currencies[currency].Rate
+		newPrice = parent.Pricing[mainCurrency].Triennially * currencies[currency].Rate
 		break
 	}
 	log.Printf("[%d] update price from %f to %f \n", product.ID, product.Recurringamount, newPrice)
