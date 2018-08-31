@@ -82,7 +82,7 @@ func updatePrice(product whmcs.ClientProduct, wg *sync.WaitGroup) {
 
 	if currency == mainCurrency {
 		//log.Printf("[%d] pays in GBP \n", product.ID)
-		return // no update needed here
+		//return // no update needed here
 	}
 
 	parent := products[product.PID]
